@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HackApp</title>
+    <!-- Link pico css from the css folder -->
+    <link rel="stylesheet" href="css/pico.min.css">
+    <!-- Link custom css from the css folder -->
+    <link rel="stylesheet" href="css/main.css">
+    <!-- Link alpine js from the js folder -->
+    <script src="js/app.js" defer></script>
+    <script src="js/alpine.min.js" defer></script>
+</head>
+<body x-data="{ isloggedIn: document.cookie.includes('AUTH_TOKEN=') }">
+    <div x-html="(await (await fetch('/navbar.html')).text())"></div>
+    <main x-data="{ user: {} }" x-init="user = await getUserData()">
+        <h2>Perfil de Usuario</h2>
+        <p>Bienvenido, <span x-text="user.name"></span>!</p>
+        <p>Correo Electrónico: <span x-text="user.email"></span></p>
+        
+        <button @click="logout()">Cerrar Sesión</button>
+
+        <h3>Transacciones</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Fecha</th>
+                    <th>Productos</th>
+                </tr>
+            </thead>
+            <tbody>
+                <template x-for="transaction in user.transactions">
+                    <tr>
+                        <td x-text="transaction.id"></td>
+                        <td x-text="new Date(transaction.created_at).toLocaleDateString()"></td>
+                        <td x-text="transaction.products"></td>
+                    </tr>
+                </template>
+            </tbody>
+        </table>
+        
+    </main>
+    <div x-html="(await (await fetch('/footer.html')).text())"></div>
+</body>
+</html>

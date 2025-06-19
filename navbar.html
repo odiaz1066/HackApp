@@ -1,0 +1,14 @@
+<header x-data="{ isloggedIn: document.cookie.includes('AUTH_TOKEN=') }">
+    <h1>Flags Country</h1>
+    <nav>
+        <ul>
+            <li x-show="!isloggedIn"><a href="login.html">Login</a></li>
+            <li x-show="!isloggedIn"><a href="register.html">Register</a></li>
+            <li><a href="products.html">Products</a></li>
+            <li><a href="cart.html?payUrl=http://somepaymentprocessor.com/pay">Cart</a></li>
+            <!-- Only show user if the AUTH_TOKEN cookie is set -->
+            <li x-show="isloggedIn"><a href="user.html">User</a></li>
+            <li x-show="isloggedIn" @click="logout()">Logout</li>
+        </ul>
+    </nav>
+</header>

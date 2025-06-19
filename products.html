@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HackApp</title>
+    <!-- Link pico css from the css folder -->
+    <link rel="stylesheet" href="css/pico.min.css">
+    <!-- Link custom css from the css folder -->
+    <link rel="stylesheet" href="css/main.css">
+    <!-- Link alpine js from the js folder -->
+    <script src="js/app.js" defer></script>
+    <script src="js/alpine.min.js" defer></script>
+</head>
+<body x-data="{ isloggedIn: document.cookie.includes('AUTH_TOKEN=') }">
+    <div x-html="(await (await fetch('/navbar.html')).text())"></div>
+    <main x-data="{ products: []}">
+        <h2>Productos</h2>
+        <p>Explora nuestros productos disponibles:</p>
+        <ul>
+            <template x-for="product in $store.products.products">
+                <li>
+                    <a :href="'product.html?id=' + product.id" x-text="product.name"></a>
+                </li>
+            </template>
+        </ul>
+        <p>Para ver los detalles de un producto, haz clic en su nombre.</p>
+    </main>
+    <div x-html="(await (await fetch('/footer.html')).text())"></div>
+</body>
+</html>

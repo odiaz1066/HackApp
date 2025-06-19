@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HackApp</title>
+    <!-- Link pico css from the css folder -->
+    <link rel="stylesheet" href="css/pico.min.css">
+    <!-- Link custom css from the css folder -->
+    <link rel="stylesheet" href="css/main.css">
+    <!-- Link alpine js from the js folder -->
+    <script src="js/app.js" defer></script>
+    <script src="js/alpine.min.js" defer></script>
+</head>
+<body x-data="{ isloggedIn: document.cookie.includes('AUTH_TOKEN=') }">
+    <div x-html="(await (await fetch('/navbar.html')).text())"></div>
+    <main x-data="{ cart: [] }" x-init="cart = getCartProducts()">
+        <h2>Carrito de Compras</h2>
+        <p>Estos son los productos que has añadido a tu carrito:</p>
+        <ul>
+            <template x-for="item in cart">
+                <li>
+                    <strong x-html="item.product.name"></strong> - 
+                    <span x-html="'Cantidad: ' + item.quantity"></span> - 
+                    <span x-html="'Precio: $' + (item.product.price * item.quantity)"></span>
+                    <button @click="removeFromCart(item.product.id)">Eliminar</button>
+                </li>
+            </template>
+        </ul>
+        <p>Total: 
+            <span x-show="cart.length > 0"></span> <!-- x-text="cart.reduce((total, item) => total + (item.price * item.amount), 0)"></span> -->
+        </p>
+        <button @click="checkout()">Proceder al Pago</button>
+        
+    </main>
+    <div x-html="(await (await fetch('/footer.html')).text())"></div>
+</body>
+</html>

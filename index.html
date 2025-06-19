@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flag Country</title>
+    <!-- Link pico css from the css folder -->
+    <link rel="stylesheet" href="css/pico.min.css">
+    <!-- Link custom css from the css folder -->
+    <link rel="stylesheet" href="css/main.css">
+    <!-- Link alpine js from the js folder -->
+    <script src="js/alpine.min.js" defer></script>
+    <script src="js/app.js" defer></script>
+</head>
+<body x-data="{ isloggedIn: document.cookie.includes('AUTH_TOKEN=') }">
+    <!-- Get the navbar from navbar.html -->
+    <div x-html="(await (await fetch('/navbar.html')).text())"></div>
+    <main>
+        <h2>Bienvenido a Flags Country, su tienda para todas sus necesidades banderiles.</h2>
+        <p>Puedes iniciar sesion o registrarte aqui:</p>
+        <button><a href="login.html">Iniciar Sesión</a></button>
+        <button><a href="register.html">Registrarse</a></button>
+        <p>Explora nuestros productos:</p>
+        <button><a href="products.html">Ver Productos</a></button>
+
+    </main>
+    <div x-html="(await (await fetch('/footer.html')).text())"></div>
+</body>
+</html>
