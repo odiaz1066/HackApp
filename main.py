@@ -77,7 +77,8 @@ class MyHandler(SimpleHTTPRequestHandler):
                 db.execute(f'SELECT * FROM transactions WHERE user_id = "{user_id}"')
                 transactions = db.fetchall()
                 db.close()
-                response = [{'id': t[0], 'user_id': t[1], 'products': t[2], 'created_at': t[3]} for t in transactions]
+                #response = [{'id': t[0], 'user_id': t[1], 'products': t[2], 'created_at': t[3]} for t in transactions]
+                response = transactions
                 self.send_response(200)
                 self.send_header('Content-type', 'application/json')
                 self.end_headers()

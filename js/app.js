@@ -87,7 +87,8 @@ async function getUserData() {
         console.error('Error fetching transactions:', response.statusText);
         return data;
     }
-    data.transactions = await response.json();
+    res = await response.json();
+    data.transactions = res.reduce((tra, val) => {tra.push({id: val[0], products: val[2], created_at: val[3]}); return tra}, [])
     return data;
 }
 
